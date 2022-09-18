@@ -47,7 +47,7 @@ class Hangman:
         self.word_guessed = ['_'] * len(self.word)
         self.number_letters = len(set(self.word))
         self.num_lives = num_lives
-        self.list_letters = ["a"]
+        self.list_letters = []
 
     def check_letter(self, letter) -> None:
         '''
@@ -69,9 +69,9 @@ class Hangman:
                 if self.word[index] == letter:
                     self.word_guessed[index] = f"'{letter}'" 
             print(self.word_guessed)
-            print(f"You still have {self.num_lives} lives left.")
+            print(f"You still have {self.num_lives} lives remaining.")
         else:
-            self.num_lives += -1
+            self.num_lives -= 1
             print(f'Sorry, {letter} is not in the word.\nYou have {self.num_lives} lives left.')
 
     def ask_letter(self):
@@ -81,11 +81,11 @@ class Hangman:
         2. If the character is a single character
         If it passes both checks, it calls the check_letter method.
         '''
-        print(self.word)
-        print(self.word_guessed)
         while True:
             letter = input("Please enter a letter: ").lower()
-            if len(letter) != 1:
+            if letter == "":
+                print("No input detected")
+            elif len(letter) != 1:
                 print("You can only enter one character")
             elif letter not in list(string.ascii_lowercase):
                 print("You can only use letters from the English alphabet")
