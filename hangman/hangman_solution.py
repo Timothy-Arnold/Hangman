@@ -48,6 +48,8 @@ class Hangman:
         self.number_letters = len(set(self.word))
         self.num_lives = num_lives
         self.list_letters = []
+        print(f"The mystery word has {len(self.word)} characters")
+        print(f"{self.word_guessed}")
 
     def check_letter(self, letter) -> None:
         '''
@@ -61,13 +63,12 @@ class Hangman:
             The letter to be checked
 
         '''
-        self.list_letters.append(f"{letter}")
         if letter in self.word:
             print(f"Nice! {letter} is in the word!")
             self.number_letters -= 1
             for index in range(len(self.word)):
                 if self.word[index] == letter:
-                    self.word_guessed[index] = f"'{letter}'" 
+                    self.word_guessed[index] = f"'{letter}'"
             print(self.word_guessed)
         else:
             self.num_lives -= 1
@@ -85,12 +86,13 @@ class Hangman:
             if letter == "":
                 print("No input detected")
             elif len(letter) != 1:
-                print("You can only enter one character")
+                print("Please, enter just one character")
             elif letter not in list(string.ascii_lowercase):
                 print("You can only use letters from the English alphabet")
             elif letter in self.list_letters:
-                print(f"You've already tried '{letter}' you muppet!")
+                print(f"{letter} was already tried")
             else:
+                self.list_letters.append(f"{letter}")
                 Hangman.check_letter(self, letter=letter)
                 break
 
