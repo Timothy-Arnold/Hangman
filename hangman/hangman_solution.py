@@ -69,7 +69,6 @@ class Hangman:
                 if self.word[index] == letter:
                     self.word_guessed[index] = f"'{letter}'" 
             print(self.word_guessed)
-            print(f"You still have {self.num_lives} lives remaining.")
         else:
             self.num_lives -= 1
             print(f'Sorry, {letter} is not in the word.\nYou have {self.num_lives} lives left.')
@@ -96,13 +95,19 @@ class Hangman:
                 break
 
 def play_game(word_list):
-    game = Hangman(word_list, num_lives=5)
-    game.ask_letter()
-    # TODO 4: Iteratively ask the user for a letter until the user guesses the word or runs out of lives
-    # If the user guesses the word, print "Congratulations, you won!"
-    # If the user runs out of lives, print "You ran out of lives. The word was {word}"
-
-    pass
+    default_num_lives = 5
+    game = Hangman(word_list, num_lives = default_num_lives)
+    while True:
+        game.ask_letter()
+        if game.num_lives == 0:
+            print(f"You ran out of lives. The word was {game.word}.")
+            break
+        if game.number_letters == 0:
+            if game.num_lives == default_num_lives:
+                print("Congratulations, flawless victory!")
+            else:
+                print("Congratulations, you won!")
+            break
 
 if __name__ == '__main__':
     word_list = ['apple', 'banana', 'orange', 'pear', 'strawberry', 'watermelon']
