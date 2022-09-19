@@ -7,6 +7,43 @@ or you will get 0 for this assignment.
 import random
 import string
 
+Hangman_images = ['''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========''']
+
 class Hangman:
     '''
     A Hangman Game that asks the user for a letter and checks if it is in the word.
@@ -49,6 +86,7 @@ class Hangman:
         self.num_lives = num_lives
         self.list_letters = []
         print(f"The mystery word has {len(self.word)} characters")
+        print(f"You have {self.num_lives} lives to guess the word")
         print(f"{self.word_guessed}")
 
     def check_letter(self, letter) -> None:
@@ -73,6 +111,7 @@ class Hangman:
         else:
             self.num_lives -= 1
             print(f'Sorry, {letter} is not in the word.\nYou have {self.num_lives} lives left.')
+            print(Hangman_images[4-self.num_lives])
 
     def ask_letter(self):
         '''
@@ -97,16 +136,15 @@ class Hangman:
                 break
 
 def play_game(word_list):
-    default_num_lives = 5
-    game = Hangman(word_list, num_lives = default_num_lives)
+    game = Hangman(word_list)
     while True:
         game.ask_letter()
         if game.num_lives == 0:
             print(f"You ran out of lives. The word was {game.word}.")
             break
         if game.number_letters == 0:
-            if game.num_lives == default_num_lives:
-                print("Congratulations, flawless victory!")
+            if game.num_lives == 5:
+                print("Congratulations, you won without losing any lives!")
             else:
                 print("Congratulations, you won!")
             break
