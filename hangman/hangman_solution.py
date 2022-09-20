@@ -11,22 +11,8 @@ Hangman_images = ['''
   +---+
   |   |
   O   |
-  |   |
-      |
-      |
-=========''', '''
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========''', '''
-  +---+
-  |   |
-  O   |
  /|\  |
-      |
+ / \  |
       |
 =========''', '''
   +---+
@@ -40,7 +26,21 @@ Hangman_images = ['''
   |   |
   O   |
  /|\  |
- / \  |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
       |
 =========''']
 
@@ -106,12 +106,13 @@ class Hangman:
             self.number_letters -= 1
             for index in range(len(self.word)):
                 if self.word[index] == letter:
-                    self.word_guessed[index] = f"'{letter}'"
+                    self.word_guessed[index] = letter
             print(self.word_guessed)
         else:
             self.num_lives -= 1
             print(f'Sorry, {letter} is not in the word.\nYou have {self.num_lives} lives left.')
-            print(Hangman_images[4-self.num_lives])
+            print(Hangman_images[self.num_lives])
+        print(f"You have already tried: {self.list_letters}")
 
     def ask_letter(self):
         '''
@@ -120,6 +121,7 @@ class Hangman:
         2. If the character is a single character
         If it passes both checks, it calls the check_letter method.
         '''
+
         while True:
             letter = input("Please enter a letter: ").lower()
             if letter == "":
