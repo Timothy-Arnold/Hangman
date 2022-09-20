@@ -76,6 +76,8 @@ class Hangman:
     -------
     check_letter(letter)
         Checks if the letter is in the word.
+    check_word(word)
+        Checks if the word guessed is correct.
     ask_letter()
         Asks the user for a letter.
     '''
@@ -87,6 +89,7 @@ class Hangman:
         self.list_letters = []
         print(f"The mystery word has {len(self.word)} characters")
         print(f"You have {self.num_lives} lives to guess the word")
+        print(f"If you want to guess the whole word, type * followed by the word e.g. *python")
         print(f"{self.word_guessed}")
 
     def check_letter(self, letter) -> None:
@@ -112,19 +115,56 @@ class Hangman:
             self.num_lives -= 1
             print(f'Sorry, {letter} is not in the word.\nYou have {self.num_lives} lives left.')
             print(Hangman_images[self.num_lives])
-        print(f"You have already tried: {self.list_letters}")
+        if self.number_letters != 0:
+            print(f"You have already tried: {self.list_letters}")
+
+    def check_word(self, word) -> None:
+        '''
+        Checks if the word guessed is correct.
+        If it is, it replaces all of the '_' in the word_guessed list with the correct letters.
+        If it is not, it reduces the number of lives by 1.
+
+        Parameters:
+        ----------
+        word: str
+            The word to be checked
+
+        '''
+        if word == self.word:
+            print(f"Nice! {word} is the word!")
+            self.number_letters = 0
+            print(list(word))
+        else:
+            self.num_lives -= 1
+            print(f'Sorry, {word} is not the word.\nYou have {self.num_lives} lives left.')
+            print(Hangman_images[self.num_lives])
+            print(f"You have already tried: {self.list_letters}")
 
     def ask_letter(self):
         '''
-        Asks the user for a letter and checks two things:
-        1. If the letter has already been tried
-        2. If the character is a single character
-        If it passes both checks, it calls the check_letter method.
+        Asks the user for a letter and checks three things:
+        1. If the input is actually the user trying to guess a word (using *)
+        2. If the letter has already been tried
+        3. If the character is a single character
+        If it passes check 1, it calls the check_word method.
+        Else, if it passes checks 2 and 3, it calls the check_letter method.
         '''
 
         while True:
             letter = input("Please enter a letter: ").lower()
-            if letter == "":
+            if letter[0] == "*":
+                word = letter[1:]
+                if word == "":
+                    print("No word detected")
+                elif False in list(map(lambda x: x in string.ascii_lowercase, list(word))):
+                    print("You can only use letters from the English alphabet")
+                elif word in self.list_letters:
+                    print(f"{word} was already tried")
+                else:
+                    self.list_letters.append(word)
+                    Hangman.check_word(self, word=word)
+                    break
+            elif letter == "":
                 print("No input detected")
             elif len(letter) != 1:
                 print("Please, enter just one character")
@@ -133,7 +173,7 @@ class Hangman:
             elif letter in self.list_letters:
                 print(f"{letter} was already tried")
             else:
-                self.list_letters.append(f"{letter}")
+                self.list_letters.append(letter)
                 Hangman.check_letter(self, letter=letter)
                 break
 
