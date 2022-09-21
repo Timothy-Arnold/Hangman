@@ -138,6 +138,7 @@ class Hangman:
             self.num_lives -= 1
             print(f'Sorry, {word} is not the word.\nYou have {self.num_lives} lives left.')
             print(Hangman_images[self.num_lives])
+        if self.number_letters != 0:
             print(f"You have already tried: {self.list_letters}")
 
     def ask_letter(self):
