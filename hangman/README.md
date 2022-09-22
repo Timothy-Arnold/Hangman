@@ -1,10 +1,10 @@
-# Example Project Documentation Guideline
+# Hangman Project
 
-This is a project to make a fully playable version of hangman, which picks a random word from a list of words that the user then has to guess. It is played through the terminal, and makes use of various features in python such as classes, loops, lambda functions, and even ascii art in order to run.
+This is a project to make a fully playable version of hangman, which picks a random word from a list of words that the user then has to guess without losing too many lives. It is played through the terminal, and makes use of various features in python such as classes, loops, lambda functions, and even ascii art in order to run.
 
 ## Milestone 1
 
-The code written in this milestone is designed to ask the user to input a letter (or a whole word if they specify so). This input is then checked using a bunch of if/elif statements to make sure it is valid (making sure it is only one character unless it's a word input, only contains letters of the English alphabet, hasn't already been picked etc.) I used a mapped lambda function to test if an inputed word had any non-letter characters. If the input is invalid, the while loop causes the user to iteratively be asked to enter a new input until the input is valid, in which case the while loop breaks and either the (soon to be built) check_letter or check_word methods are called.
+The code written in this milestone is designed to ask the user to input a letter (or a whole word if they specify so by adding a * to the front of the word). This input is then checked using a bunch of if/elif statements to make sure it is valid (making sure that letter inputs are only 1 character, they only contain letters of the English alphabet, the input hasn't already been picked etc.) I used a mapped lambda function to test if an inputed word had any non-letter characters. If the input is invalid, the while loop causes the user to iteratively be asked to enter a new input until the input is valid, in which case the while loop breaks and either the (soon to be built) check_letter or check_word methods are called.
   
 ```python
     def ask_letter(self):
@@ -47,7 +47,7 @@ The code written in this milestone is designed to ask the user to input a letter
 
 ## Milestone 2
 
-For this milestone I initialized the Hangman class which would set up the foundation of the Hangman game. I set up attributes which start off the game by picking the word to guess (using the imported random package), and then setting up the blank-space word to be guessed (in the form of a list of '_' strings). Attributes describing the number of (unique) letters in the word yet to be guessed, as well as the number of lives the user has remaining were also defined (since either of these reaching 0 would signify the game ending in a win or loss), and a list of already-tried inputs was also defined for use in the ask_letter method. Finally a print out the starting message of the game, showing the user the blank spaces to fill and giving them instruction for the start of the game.
+For this milestone I initialized the Hangman class which would set up the foundation of the Hangman game. I set up attributes which start off the game by randomly picking the word to guess from a list of word to be defined later (using the imported random package), and then setting up the blank-space word showing which letters needed to be guessed (in the form of a list of '_' strings). I made attributes for the number of (unique) letters in the word yet to be guessed, as well as the number of lives the user has remaining (since either of these reaching 0 would signify the game ending in a win or loss), and a list of already-tried inputs was also defined for use in the ask_letter method. Finally I printed out the starting message of the game, showing the user the blank spaces to fill.
 
 ```python
 import random
@@ -66,7 +66,7 @@ import random
 
 ## Milestone 3
 
-In milestone 3 I built the check_letter and check_word methods which would be called by the ask_letter method upon receiving a valid input. For incorrect inputs I reduced the num_lives attribute by 1, and for correct inputs I either reduced the num_letters attribute by 1, or all the way down to 0 (signifying a win if the inputed word was correct). For the ask_letter method I used a for loop to replace blank spaces with the inputed letter if said letter was in the word.
+In milestone 3 I built the check_letter and check_word methods which would be called by the ask_letter method upon receiving a valid input. For incorrect inputs I reduced the num_lives attribute by 1, and for correct inputs I either reduced the num_letters attribute by 1, or all the way down to 0 in the case of a correct word (signifying a win). In the ask_letter method I used a for loop to replace blank spaces with the inputed letter if said letter was in the word.
 
 ```python
     def check_letter(self, letter) -> None:
@@ -145,4 +145,4 @@ if __name__ == '__main__':
 
 ## Conclusions
 
-Writing this hangman project involved using loops, game logic etc. in order to define functions, and helped me learn how to write and carry out a class which made use of these functions. In the future I would consider making a front end GUI for the game using Tkinter which would make it more accessible to the user.
+Writing this hangman project involved using loops, game logic etc. in order to define functions, all within the framework of a class to help carry out each instance of the game. In the future I would consider making a front end GUI for the game using Tkinter which would make it more accessible to the user.
